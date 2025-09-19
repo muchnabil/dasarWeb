@@ -43,11 +43,33 @@ $daftarNilai = [
     ],
 ];
 
-$matauliah = 'Fisika';
+$mataKuliah = 'Fisika';
 
 echo "Daftar nilai mahasiswa dalam mata kuliah $mataKuliah: <br>";
 
-foreach ($daftarNilai [$mataKuliah] as $nilai) {
-    echo "Nama: {$nilai [0]}, Nilai: {$nilai [1]} <br>";
+foreach ($daftarNilai[$mataKuliah] as $nilai) {
+    echo "Nama : {$nilai[0]}, Nilai : {$nilai[1]} <br>";
+}
+
+
+$nilaiSiswa = [
+    'Alice' => 85,
+    'Bob' => 92,
+    'Charlie' => 78,
+    'David' => 64,
+    'Eva' => 90
+];
+
+$total = array_sum($nilaiSiswa);
+$jumlah = count($nilaiSiswa);
+$rataRata = $total / $jumlah;
+
+echo "Rata-rata kelas: $rataRata <br>";
+echo "Daftar siswa dengan nilai di atas rata-rata: <br>";
+
+foreach ($nilaiSiswa as $nama => $nilai) {
+    if ($nilai > $rataRata) {
+        echo "Nama: $nama, Nilai: $nilai <br>";
+    }
 }
 ?>

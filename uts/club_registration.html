@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Keanggotaan Klub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c;
+            color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .form-container {
+            max-width: 800px;
+            width: 95%;
+            background-color: #2d3748;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            background-color: #4a5568;
+            border: 1px solid #718096;
+            color: #e2e8f0;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            border-color: #63b3ed;
+            box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.5);
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container p-6 sm:p-10 rounded-xl">
+    <header class="text-center mb-8">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-blue-300 mb-2">
+            Pendaftaran Keanggotaan Klub
+        </h1>
+        <p class="text-gray-400">Bergabunglah dengan komunitas kami! Isi formulir di bawah ini.</p>
+    </header>
+
+    <div id="message-box" class="hidden p-4 mb-4 rounded-lg text-sm text-center font-semibold"></div>
+
+    <form id="registrationForm" class="space-y-6">
+        <h2 class="text-xl font-bold text-blue-200 border-b border-blue-700 pb-2">Informasi Dasar</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <div>
+                <label for="fullName" class="block text-sm font-medium text-gray-300 mb-1">Nama Lengkap</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Contoh: Budi Santoso"
+                       class="w-full p-3 rounded-lg" required>
+            </div>
+            
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                <input type="email" id="email" name="email" placeholder="contoh@kampus.ac.id"
+                       class="w-full p-3 rounded-lg" required>
+            </div>
+
+            <div>
+                <label for="phone" class="block text-sm font-medium text-gray-300 mb-1">Nomor Telepon (WhatsApp)</label>
+                <input type="tel" id="phone" name="phone" placeholder="Contoh: 081234567890"
+                       class="w-full p-3 rounded-lg" required pattern="[0-9]{10,14}">
+            </div>
+
+            <div>
+                <label for="studentId" class="block text-sm font-medium text-gray-300 mb-1">ID Mahasiswa</label>
+                <input type="text" id="studentId" name="studentId" placeholder="Contoh: 123201001"
+                       class="w-full p-3 rounded-lg" required>
+            </div>
+        </div>
+
+        <h2 class="text-xl font-bold text-blue-200 border-b border-blue-700 pb-2 pt-4">Pilihan Keanggotaan</h2>
+        
+        <div>
+            <label for="clubPreference" class="block text-sm font-medium text-gray-300 mb-1">Pilih Klub Pilihan</label>
+            <select id="clubPreference" name="clubPreference" class="w-full p-3 rounded-lg" required>
+                <option value="" disabled selected>-- Pilih Klub --</option>
+                <option value="Programming">Klub Pemrograman & AI</option>
+                <option value="Design">Klub Desain Grafis & UI/UX</option>
+                <option value="Robotics">Klub Robotika & Elektronika</option>
+                <option value="Photography">Klub Fotografi & Videografi</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Ukuran Kaos Klub</label>
+            <div class="flex flex-wrap gap-4">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="tshirtSize" value="S" class="form-radio text-blue-500" required>
+                    <span class="ml-2 text-gray-300">S (Small)</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="tshirtSize" value="M" class="form-radio text-blue-500">
+                    <span class="ml-2 text-gray-300">M (Medium)</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="tshirtSize" value="L" class="form-radio text-blue-500">
+                    <span class="ml-2 text-gray-300">L (Large)</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="tshirtSize" value="XL" class="form-radio text-blue-500">
+                    <span class="ml-2 text-gray-300">XL (Extra Large)</span>
+                </label>
+            </div>
+        </div>
+
+
+        <h2 class="text-xl font-bold text-blue-200 border-b border-blue-700 pb-2 pt-4">Persetujuan</h2>
+        
+        <div class="flex items-start">
+            <input type="checkbox" id="consent" name="consent" class="mt-1 form-checkbox h-5 w-5 text-blue-500 rounded" required>
+            <label for="consent" class="ml-3 text-sm text-gray-300">
+                Saya menyetujui syarat dan ketentuan keanggotaan klub serta penggunaan data pribadi untuk keperluan administrasi klub.
+            </label>
+        </div>
+
+        <button type="submit" id="submitButton"
+                class="w-full py-3 mt-8 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition duration-300 ease-in-out transform hover:scale-[1.01]">
+            <span id="buttonText">Kirim Pendaftaran</span>
+            <span id="loadingSpinner" class="hidden h-5 w-5 border-4 border-t-4 border-blue-200 border-opacity-50 rounded-full animate-spin ml-2"></span>
+        </button>
+    </form>
+</div>
+
+<script>
+    const messageBox = $('#message-box');
+    const form = $('#registrationForm');
+    const button = $('#submitButton');
+    const buttonText = $('#buttonText');
+    const loadingSpinner = $('#loadingSpinner');
+    
+
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for(let i=0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+
+    function simulatePHPBackend(formData) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (formData.email.includes("admin")) {
+                    resolve({
+                        success: false,
+                        message: "Email 'admin' tidak diperbolehkan. Gunakan email kampus Anda."
+                    });
+                } else if (formData.studentId === "123456789") {
+                     resolve({
+                        success: false,
+                        message: "ID Mahasiswa 123456789 sudah terdaftar di klub lain."
+                    });
+                } else {
+                    resolve({
+                        success: true,
+                        message: "Pendaftaran klub berhasil! Data Anda telah diterima."
+                    });
+                }
+            }, 2000);
+        });
+    }
+
+
+    form.on('submit', function(e) {
+        e.preventDefault();
+        
+        messageBox.addClass('hidden');
+        
+        if (!$('#consent').is(':checked')) {
+            showMessage("error", "Anda harus menyetujui syarat dan ketentuan.");
+            return;
+        }
+
+        buttonText.text('Memproses...');
+        loadingSpinner.removeClass('hidden');
+        button.prop('disabled', true);
+
+        const formDataArray = $(this).serializeArray();
+        const formData = {};
+        formDataArray.forEach(item => {
+            formData[item.name] = item.value;
+        });
+
+        setCookie("last_name", formData.fullName, 30);
+
+
+        simulatePHPBackend(formData)
+            .then(response => {
+                handleResponse(response);
+            })
+            .catch(error => {
+                handleResponse({ success: false, message: "Terjadi kesalahan internal simulasi." });
+            });
+    });
+
+
+    function handleResponse(response) {
+        buttonText.text('Kirim Pendaftaran');
+        loadingSpinner.addClass('hidden');
+        button.prop('disabled', false);
+
+        if (response.success) {
+            showMessage("success", response.message);
+            form[0].reset();
+        } else {
+            showMessage("error", "Gagal Pendaftaran: " + response.message);
+        }
+    }
+
+
+    function showMessage(type, message) {
+        messageBox.text(message);
+        messageBox.removeClass('hidden bg-green-700 bg-red-700');
+        
+        if (type === "success") {
+            messageBox.addClass('bg-green-700 text-green-100');
+        } else {
+            messageBox.addClass('bg-red-700 text-red-100');
+        }
+        
+        $('html, body').animate({
+            scrollTop: 0
+        }, 'slow');
+    }
+
+
+    $(document).ready(function() {
+        const savedName = getCookie("last_name");
+        if (savedName) {
+            $('#fullName').val(savedName);
+            showMessage("info", "Halo, " + savedName + "! Kami memuat nama Anda dari cookie.");
+            messageBox.addClass('bg-blue-700 text-blue-100').removeClass('bg-green-700 bg-red-700');
+        }
+    });
+
+</script>
+
+</body>
+</html>
